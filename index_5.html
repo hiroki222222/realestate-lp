@@ -1,0 +1,2279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>住まいのプロフェッショナル | 不動産総合サービス</title>
+
+  <!-- =====================================================
+       Google Fonts
+       - 和文: Noto Serif JP（信頼感・品格）
+       - 欧文: Cormorant Garamond（高級感）
+  ====================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Noto+Serif+JP:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* =====================================================
+       CSS カスタムプロパティ（変数）
+       - 色・フォント・余白をここで一元管理
+       - テキスト変更時はここだけ触れば全体に反映
+    ====================================================== */
+    :root {
+      /* カラーパレット */
+      --色-ネイビー深:    #0d1b2a;
+      --色-ネイビー中:    #1b2d45;
+      --色-ネイビー薄:    #243b55;
+      --色-ゴールド:      #c9a84c;
+      --色-ゴールド薄:    #e8c97a;
+      --色-クリーム:      #f8f5ef;
+      --色-白:            #ffffff;
+      --色-グレー薄:      #f0ede7;
+      --色-グレー中:      #8a8a8a;
+      --色-テキスト本文:  #3a3a3a;
+
+      /* フォント */
+      --フォント-見出し和: 'Noto Serif JP', serif;
+      --フォント-見出し欧: 'Cormorant Garamond', serif;
+      --フォント-本文:     'Noto Sans JP', sans-serif;
+
+      /* 余白（8px基準）*/
+      --余白-XS:  8px;
+      --余白-S:   16px;
+      --余白-M:   32px;
+      --余白-L:   64px;
+      --余白-XL:  96px;
+      --余白-XXL: 128px;
+
+      /* レイアウト */
+      --最大幅: 1160px;
+      --角丸:   4px;
+
+      /* アニメーション */
+      --アニメーション速度: 0.6s;
+    }
+
+    /* =====================================================
+       リセット・ベーススタイル
+    ====================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--フォント-本文);
+      color: var(--色-テキスト本文);
+      background-color: var(--色-白);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* =====================================================
+       共通パーツ
+    ====================================================== */
+
+    /* 内側の幅を制限するコンテナ */
+    .内側 {
+      width: 100%;
+      max-width: var(--最大幅);
+      margin: 0 auto;
+      padding: 0 var(--余白-M);
+    }
+
+    /* セクション共通 */
+    .セクション {
+      padding: var(--余白-XXL) 0;
+    }
+
+    .セクション-背景クリーム {
+      background-color: var(--色-クリーム);
+    }
+
+    .セクション-背景ネイビー {
+      background-color: var(--色-ネイビー深);
+      color: var(--色-白);
+    }
+
+    /* セクション見出し */
+    .見出しブロック {
+      text-align: center;
+      margin-bottom: var(--余白-XL);
+    }
+
+    .見出し-欧文サブ {
+      font-family: var(--フォント-見出し欧);
+      font-size: clamp(12px, 2vw, 14px);
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      color: var(--色-ゴールド);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: var(--余白-XS);
+    }
+
+    .見出し-H2 {
+      font-family: var(--フォント-見出し和);
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--色-ネイビー深);
+      margin-bottom: var(--余白-S);
+    }
+
+    .セクション-背景ネイビー .見出し-H2 {
+      color: var(--色-白);
+    }
+
+    .見出し-区切り線 {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--色-ゴールド), var(--色-ゴールド薄));
+      margin: var(--余白-S) auto 0;
+    }
+
+    /* ボタン */
+    .ボタン-メイン {
+      display: inline-block;
+      padding: 18px 48px;
+      background: linear-gradient(135deg, var(--色-ゴールド), var(--色-ゴールド薄));
+      color: var(--色-ネイビー深);
+      font-family: var(--フォント-見出し和);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      border-radius: var(--角丸);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: none;
+    }
+
+    .ボタン-メイン:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.4);
+    }
+
+    .ボタン-サブ {
+      display: inline-block;
+      padding: 16px 44px;
+      background: transparent;
+      color: var(--色-白);
+      font-family: var(--フォント-見出し和);
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: var(--角丸);
+      cursor: pointer;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .ボタン-サブ:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--色-ゴールド);
+    }
+
+    /* フェードイン（スクロール連動）*/
+    .フェードイン {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .フェードイン.表示済み {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =====================================================
+       ① ヘッダー・グローバルナビ
+    ====================================================== */
+    .ヘッダー {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+      padding: 24px 0;
+    }
+
+    .ヘッダー.スクロール済み {
+      background: rgba(13, 27, 42, 0.96);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+      padding: 16px 0;
+    }
+
+    .ヘッダー-内側 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--余白-M);
+    }
+
+    /* ロゴ */
+    .ロゴ {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .ロゴ-欧文 {
+      font-family: var(--フォント-見出し欧);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--色-白);
+      letter-spacing: 0.1em;
+      line-height: 1;
+    }
+
+    .ロゴ-和文 {
+      font-family: var(--フォント-見出し和);
+      font-size: 10px;
+      font-weight: 300;
+      color: var(--色-ゴールド);
+      letter-spacing: 0.25em;
+    }
+
+    /* ナビゲーション */
+    .ナビ {
+      display: flex;
+      align-items: center;
+      gap: var(--余白-M);
+    }
+
+    .ナビ a {
+      font-family: var(--フォント-見出し和);
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.8);
+      letter-spacing: 0.12em;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .ナビ a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--色-ゴールド);
+      transition: width 0.3s ease;
+    }
+
+    .ナビ a:hover {
+      color: var(--色-ゴールド);
+    }
+
+    .ナビ a:hover::after {
+      width: 100%;
+    }
+
+    /* ハンバーガー（スマホ用） */
+    .ハンバーガー {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+    }
+
+    .ハンバーガー span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--色-白);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .ハンバーガー.開く span:nth-child(1) {
+      transform: translateY(7.5px) rotate(45deg);
+    }
+
+    .ハンバーガー.開く span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .ハンバーガー.開く span:nth-child(3) {
+      transform: translateY(-7.5px) rotate(-45deg);
+    }
+
+    /* スマホナビ */
+    .スマホナビ {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(13, 27, 42, 0.98);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--余白-L);
+    }
+
+    .スマホナビ.開く {
+      display: flex;
+    }
+
+    .スマホナビ a {
+      font-family: var(--フォント-見出し和);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--色-白);
+      letter-spacing: 0.2em;
+      transition: color 0.3s ease;
+    }
+
+    .スマホナビ a:hover {
+      color: var(--色-ゴールド);
+    }
+
+    /* =====================================================
+       ② ヒーローセクション
+    ====================================================== */
+    .ヒーロー {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* 背景グラデーション（画像の代わり） */
+    .ヒーロー-背景 {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        var(--色-ネイビー深) 0%,
+        var(--色-ネイビー薄) 50%,
+        #1e3a5f 100%
+      );
+    }
+
+    /* 装飾的な幾何学パターン */
+    .ヒーロー-装飾 {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .ヒーロー-装飾::before {
+      content: '';
+      position: absolute;
+      right: -10%;
+      top: -10%;
+      width: 70%;
+      height: 120%;
+      background: linear-gradient(135deg, transparent 40%, rgba(201, 168, 76, 0.06) 100%);
+      border-left: 1px solid rgba(201, 168, 76, 0.12);
+      transform: skewX(-15deg);
+    }
+
+    .ヒーロー-装飾::after {
+      content: '';
+      position: absolute;
+      right: 5%;
+      top: 15%;
+      width: 45%;
+      height: 80%;
+      border: 1px solid rgba(201, 168, 76, 0.08);
+      border-radius: var(--角丸);
+    }
+
+    /* ヒーロー本文 */
+    .ヒーロー-コンテンツ {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+    }
+
+    .ヒーロー-タグライン {
+      font-family: var(--フォント-見出し欧);
+      font-size: clamp(11px, 1.5vw, 13px);
+      font-weight: 400;
+      color: var(--色-ゴールド);
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: var(--余白-S);
+      opacity: 0;
+      animation: フェード上昇 0.8s ease 0.2s forwards;
+    }
+
+    .ヒーロー-H1 {
+      font-family: var(--フォント-見出し和);
+      font-size: clamp(36px, 6vw, 68px);
+      font-weight: 600;
+      color: var(--色-白);
+      line-height: 1.25;
+      margin-bottom: var(--余白-M);
+      opacity: 0;
+      animation: フェード上昇 0.8s ease 0.4s forwards;
+    }
+
+    .ヒーロー-H1 em {
+      font-style: normal;
+      color: var(--色-ゴールド薄);
+    }
+
+    .ヒーロー-本文 {
+      font-size: clamp(14px, 1.8vw, 16px);
+      color: rgba(255, 255, 255, 0.72);
+      max-width: 520px;
+      margin-bottom: var(--余白-L);
+      opacity: 0;
+      animation: フェード上昇 0.8s ease 0.6s forwards;
+    }
+
+    .ヒーロー-ボタン群 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--余白-S);
+      opacity: 0;
+      animation: フェード上昇 0.8s ease 0.8s forwards;
+    }
+
+    /* スクロールダウン表示 */
+    .スクロールダウン {
+      position: absolute;
+      bottom: var(--余白-M);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--余白-XS);
+      opacity: 0;
+      animation: フェード上昇 0.8s ease 1.2s forwards;
+    }
+
+    .スクロールダウン-テキスト {
+      font-family: var(--フォント-見出し欧);
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .スクロールダウン-ライン {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, rgba(201, 168, 76, 0.6), transparent);
+      animation: ライン下降 1.6s ease-in-out infinite;
+    }
+
+    /* 数字カウンター（実績）*/
+    .ヒーロー-実績 {
+      position: absolute;
+      bottom: var(--余白-L);
+      right: 5%;
+      display: flex;
+      gap: var(--余白-L);
+      z-index: 1;
+      opacity: 0;
+      animation: フェード上昇 0.8s ease 1s forwards;
+    }
+
+    .実績-アイテム {
+      text-align: center;
+      border-left: 1px solid rgba(201, 168, 76, 0.3);
+      padding-left: var(--余白-M);
+    }
+
+    .実績-数値 {
+      font-family: var(--フォント-見出し欧);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 300;
+      color: var(--色-ゴールド薄);
+      line-height: 1;
+      display: block;
+    }
+
+    .実績-ラベル {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.2em;
+      font-family: var(--フォント-見出し和);
+      font-weight: 300;
+    }
+
+    /* =====================================================
+       ③ サービスセクション
+    ====================================================== */
+    .サービス-グリッド {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--余白-M);
+    }
+
+    .サービス-カード {
+      background: var(--色-白);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      border-radius: var(--角丸);
+      padding: var(--余白-L) var(--余白-M);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .サービス-カード::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 0;
+      background: linear-gradient(to bottom, var(--色-ゴールド), var(--色-ゴールド薄));
+      transition: height 0.4s ease;
+    }
+
+    .サービス-カード:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+      border-color: rgba(201, 168, 76, 0.4);
+    }
+
+    .サービス-カード:hover::before {
+      height: 100%;
+    }
+
+    .サービス-アイコン {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--色-クリーム), var(--色-グレー薄));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--余白-M);
+      font-size: 24px;
+    }
+
+    .サービス-番号 {
+      font-family: var(--フォント-見出し欧);
+      font-size: 13px;
+      color: var(--色-ゴールド);
+      letter-spacing: 0.2em;
+      font-weight: 400;
+      margin-bottom: var(--余白-XS);
+      display: block;
+    }
+
+    .サービス-タイトル {
+      font-family: var(--フォント-見出し和);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--色-ネイビー深);
+      margin-bottom: var(--余白-S);
+      line-height: 1.4;
+    }
+
+    .サービス-本文 {
+      font-size: 14px;
+      color: var(--色-グレー中);
+      line-height: 1.8;
+    }
+
+    /* =====================================================
+       ④ 選ばれる理由セクション
+    ====================================================== */
+    .理由-レイアウト {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--余白-XL);
+      align-items: center;
+    }
+
+    .理由-ビジュアル {
+      position: relative;
+      aspect-ratio: 4/5;
+      border-radius: var(--角丸);
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--色-ネイビー中), var(--色-ネイビー薄));
+    }
+
+    /* 画像代替：幾何学的装飾 */
+    .理由-ビジュアル::before {
+      content: '';
+      position: absolute;
+      inset: var(--余白-M);
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      border-radius: var(--角丸);
+    }
+
+    .理由-ビジュアル-テキスト {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--余白-S);
+      padding: var(--余白-M);
+    }
+
+    .理由-ビジュアル-数値 {
+      font-family: var(--フォント-見出し欧);
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 300;
+      color: rgba(201, 168, 76, 0.2);
+      line-height: 1;
+    }
+
+    .理由-ビジュアル-キャプション {
+      font-family: var(--フォント-見出し和);
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+      letter-spacing: 0.15em;
+    }
+
+    .理由-バッジ {
+      position: absolute;
+      bottom: var(--余白-M);
+      right: var(--余白-M);
+      background: var(--色-ゴールド);
+      color: var(--色-ネイビー深);
+      padding: var(--余白-S) var(--余白-M);
+      border-radius: var(--角丸);
+      font-family: var(--フォント-見出し和);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+    }
+
+    .理由-リスト {
+      display: flex;
+      flex-direction: column;
+      gap: var(--余白-M);
+    }
+
+    .理由-アイテム {
+      display: flex;
+      gap: var(--余白-S);
+      padding: var(--余白-M);
+      background: var(--色-白);
+      border-radius: var(--角丸);
+      border: 1px solid rgba(201, 168, 76, 0.12);
+      transition: border-color 0.3s ease;
+    }
+
+    .理由-アイテム:hover {
+      border-color: var(--色-ゴールド);
+    }
+
+    .理由-アイテム-番号 {
+      font-family: var(--フォント-見出し欧);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--色-ゴールド);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 36px;
+    }
+
+    .理由-アイテム-内容 h3 {
+      font-family: var(--フォント-見出し和);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--色-ネイビー深);
+      margin-bottom: 6px;
+    }
+
+    .理由-アイテム-内容 p {
+      font-size: 13px;
+      color: var(--色-グレー中);
+      line-height: 1.7;
+    }
+
+    /* =====================================================
+       ⑤ 物件紹介セクション（実績・事例）
+    ====================================================== */
+    .物件-グリッド {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: var(--余白-M);
+    }
+
+    .物件-カード {
+      border-radius: var(--角丸);
+      overflow: hidden;
+      background: var(--色-白);
+      border: 1px solid var(--色-グレー薄);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .物件-カード:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .物件-画像エリア {
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, var(--色-ネイビー中), var(--色-ネイビー薄));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .物件-画像エリア::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13,27,42,0.6) 0%, transparent 60%);
+    }
+
+    .物件-タグ {
+      position: absolute;
+      top: var(--余白-S);
+      left: var(--余白-S);
+      background: var(--色-ゴールド);
+      color: var(--色-ネイビー深);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      padding: 4px 12px;
+      border-radius: 2px;
+      font-family: var(--フォント-見出し和);
+      z-index: 1;
+    }
+
+    .物件-画像プレースホルダー {
+      font-family: var(--フォント-見出し欧);
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.15);
+      letter-spacing: 0.05em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .物件-情報 {
+      padding: var(--余白-M);
+    }
+
+    .物件-エリア {
+      font-size: 12px;
+      color: var(--色-ゴールド);
+      letter-spacing: 0.15em;
+      font-family: var(--フォント-見出し和);
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .物件-名前 {
+      font-family: var(--フォント-見出し和);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--色-ネイビー深);
+      margin-bottom: var(--余白-XS);
+      line-height: 1.4;
+    }
+
+    .物件-本文 {
+      font-size: 13px;
+      color: var(--色-グレー中);
+      line-height: 1.7;
+    }
+
+    /* =====================================================
+       ⑥ お客様の声セクション
+    ====================================================== */
+    .声-グリッド {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--余白-M);
+    }
+
+    .声-カード {
+      background: var(--色-ネイビー中);
+      border-radius: var(--角丸);
+      padding: var(--余白-L) var(--余白-M);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      position: relative;
+    }
+
+    .声-引用符 {
+      font-family: var(--フォント-見出し欧);
+      font-size: 64px;
+      font-weight: 600;
+      color: rgba(201, 168, 76, 0.2);
+      line-height: 1;
+      position: absolute;
+      top: var(--余白-S);
+      left: var(--余白-M);
+    }
+
+    .声-本文 {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.9;
+      margin-bottom: var(--余白-M);
+      position: relative;
+      z-index: 1;
+      margin-top: var(--余白-M);
+    }
+
+    .声-プロフィール {
+      display: flex;
+      align-items: center;
+      gap: var(--余白-S);
+      padding-top: var(--余白-S);
+      border-top: 1px solid rgba(201, 168, 76, 0.15);
+    }
+
+    .声-アバター {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--色-ゴールド), var(--色-ゴールド薄));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--フォント-見出し和);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--色-ネイビー深);
+      flex-shrink: 0;
+    }
+
+    .声-名前 {
+      font-family: var(--フォント-見出し和);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--色-白);
+    }
+
+    .声-属性 {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: 2px;
+    }
+
+    .声-星 {
+      color: var(--色-ゴールド);
+      font-size: 14px;
+      letter-spacing: 2px;
+    }
+
+    /* =====================================================
+       ⑦ フロー（流れ）セクション
+    ====================================================== */
+    .フロー-ステップ {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .フロー-アイテム {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: var(--余白-M);
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .フロー-アイテム:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 39px;
+      top: 80px;
+      width: 1px;
+      height: calc(100% - 40px);
+      background: linear-gradient(to bottom, var(--色-ゴールド), rgba(201, 168, 76, 0.1));
+    }
+
+    .フロー-番号エリア {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .フロー-番号 {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--色-ゴールド), var(--色-ゴールド薄));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--フォント-見出し欧);
+      font-size: 24px;
+      font-weight: 300;
+      color: var(--色-ネイビー深);
+    }
+
+    .フロー-内容 {
+      padding: var(--余白-S) 0 var(--余白-L);
+    }
+
+    .フロー-タイトル {
+      font-family: var(--フォント-見出し和);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--色-ネイビー深);
+      margin-bottom: var(--余白-XS);
+      margin-top: 24px;
+    }
+
+    .フロー-本文 {
+      font-size: 14px;
+      color: var(--色-グレー中);
+      line-height: 1.8;
+    }
+
+    /* =====================================================
+       ⑧ よくある質問（FAQ）セクション
+    ====================================================== */
+    .FAQ-リスト {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--余白-XS);
+    }
+
+    .FAQ-アイテム {
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      border-radius: var(--角丸);
+      overflow: hidden;
+    }
+
+    .FAQ-質問 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--余白-M);
+      cursor: pointer;
+      background: var(--色-白);
+      gap: var(--余白-M);
+      transition: background 0.3s ease;
+    }
+
+    .FAQ-質問:hover {
+      background: var(--色-クリーム);
+    }
+
+    .FAQ-質問-テキスト {
+      font-family: var(--フォント-見出し和);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--色-ネイビー深);
+      line-height: 1.5;
+    }
+
+    .FAQ-Q-記号 {
+      font-family: var(--フォント-見出し欧);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--色-ゴールド);
+      flex-shrink: 0;
+    }
+
+    .FAQ-矢印 {
+      font-size: 18px;
+      color: var(--色-ゴールド);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .FAQ-アイテム.開く .FAQ-矢印 {
+      transform: rotate(180deg);
+    }
+
+    .FAQ-回答 {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .FAQ-アイテム.開く .FAQ-回答 {
+      max-height: 300px;
+    }
+
+    .FAQ-回答-内側 {
+      padding: 0 var(--余白-M) var(--余白-M);
+      font-size: 14px;
+      color: var(--色-グレー中);
+      line-height: 1.9;
+      border-top: 1px solid rgba(201, 168, 76, 0.1);
+      padding-top: var(--余白-S);
+    }
+
+    /* =====================================================
+       ⑨ お問い合わせフォームセクション
+    ====================================================== */
+    .フォーム-ラッパー {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--余白-XL);
+      align-items: flex-start;
+    }
+
+    .フォーム-案内 .見出し-H2 {
+      color: var(--色-白);
+      text-align: left;
+    }
+
+    .フォーム-本文 {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 15px;
+      margin-top: var(--余白-M);
+      line-height: 1.9;
+    }
+
+    .フォーム-特典 {
+      margin-top: var(--余白-L);
+      display: flex;
+      flex-direction: column;
+      gap: var(--余白-S);
+    }
+
+    .フォーム-特典-アイテム {
+      display: flex;
+      align-items: center;
+      gap: var(--余白-S);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .フォーム-特典-アイテム::before {
+      content: '✓';
+      width: 24px;
+      height: 24px;
+      background: var(--色-ゴールド);
+      color: var(--色-ネイビー深);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* フォーム本体 */
+    .フォーム本体 {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: var(--角丸);
+      padding: var(--余白-L);
+    }
+
+    .フォーム-グループ {
+      display: flex;
+      flex-direction: column;
+      gap: var(--余白-S);
+      margin-bottom: var(--余白-M);
+    }
+
+    .フォーム-グループ:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .フォーム-ラベル {
+      font-family: var(--フォント-見出し和);
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.1em;
+    }
+
+    .フォーム-必須 {
+      background: var(--色-ゴールド);
+      color: var(--色-ネイビー深);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 2px;
+      margin-left: var(--余白-XS);
+      vertical-align: middle;
+    }
+
+    .フォーム-入力,
+    .フォーム-セレクト,
+    .フォーム-テキストエリア {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: var(--角丸);
+      padding: 14px var(--余白-S);
+      font-family: var(--フォント-本文);
+      font-size: 14px;
+      color: var(--色-白);
+      outline: none;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .フォーム-入力::placeholder,
+    .フォーム-テキストエリア::placeholder {
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    .フォーム-入力:focus,
+    .フォーム-セレクト:focus,
+    .フォーム-テキストエリア:focus {
+      border-color: var(--色-ゴールド);
+      background: rgba(201, 168, 76, 0.06);
+    }
+
+    .フォーム-セレクト {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      cursor: pointer;
+    }
+
+    .フォーム-セレクト option {
+      background: var(--色-ネイビー深);
+      color: var(--色-白);
+    }
+
+    .フォーム-テキストエリア {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    .フォーム-2列 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--余白-S);
+    }
+
+    .フォーム-送信ボタン {
+      width: 100%;
+      margin-top: var(--余白-M);
+      padding: 18px;
+      background: linear-gradient(135deg, var(--色-ゴールド), var(--色-ゴールド薄));
+      color: var(--色-ネイビー深);
+      font-family: var(--フォント-見出し和);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      border: none;
+      border-radius: var(--角丸);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .フォーム-送信ボタン:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(201, 168, 76, 0.5);
+    }
+
+    .フォーム-注釈 {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.3);
+      text-align: center;
+      margin-top: var(--余白-S);
+      line-height: 1.8;
+    }
+
+    /* =====================================================
+       ⑩ フッター
+    ====================================================== */
+    .フッター {
+      background: var(--色-ネイビー深);
+      border-top: 1px solid rgba(201, 168, 76, 0.15);
+      padding: var(--余白-XL) 0 var(--余白-M);
+    }
+
+    .フッター-コンテンツ {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: var(--余白-L);
+      margin-bottom: var(--余白-L);
+    }
+
+    .フッター-会社情報 .ロゴ-欧文 {
+      font-size: 20px;
+      margin-bottom: var(--余白-XS);
+    }
+
+    .フッター-説明 {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.8;
+      margin-top: var(--余白-S);
+      max-width: 280px;
+    }
+
+    .フッター-リンクグループ h4 {
+      font-family: var(--フォント-見出し和);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--色-ゴールド);
+      letter-spacing: 0.2em;
+      margin-bottom: var(--余白-S);
+    }
+
+    .フッター-リンクグループ ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .フッター-リンクグループ a {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.45);
+      transition: color 0.3s ease;
+    }
+
+    .フッター-リンクグループ a:hover {
+      color: var(--色-ゴールド薄);
+    }
+
+    .フッター-下部 {
+      padding-top: var(--余白-M);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--余白-S);
+    }
+
+    .コピーライト {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.25);
+      letter-spacing: 0.1em;
+    }
+
+    .フッター-リンク群 {
+      display: flex;
+      gap: var(--余白-M);
+    }
+
+    .フッター-リンク群 a {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.25);
+      transition: color 0.3s ease;
+    }
+
+    .フッター-リンク群 a:hover {
+      color: var(--色-ゴールド);
+    }
+
+    /* ページトップボタン */
+    .ページトップ {
+      position: fixed;
+      bottom: var(--余白-M);
+      right: var(--余白-M);
+      width: 48px;
+      height: 48px;
+      background: var(--色-ゴールド);
+      color: var(--色-ネイビー深);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 100;
+    }
+
+    .ページトップ.表示 {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .ページトップ:hover {
+      box-shadow: 0 6px 20px rgba(201, 168, 76, 0.5);
+    }
+
+    /* =====================================================
+       キーフレームアニメーション
+    ====================================================== */
+    @keyframes フェード上昇 {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes ライン下降 {
+      0%, 100% { opacity: 1; transform: scaleY(1) translateY(0); }
+      50% { opacity: 0.4; transform: scaleY(0.5) translateY(8px); }
+    }
+
+    /* =====================================================
+       レスポンシブ対応
+       ブレークポイント: 1024px / 768px / 480px
+    ====================================================== */
+    @media (max-width: 1024px) {
+      .ヒーロー-実績 {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        flex-wrap: wrap;
+        margin-top: var(--余白-XL);
+        gap: var(--余白-M);
+        animation: フェード上昇 0.8s ease 1s forwards;
+      }
+
+      .理由-レイアウト {
+        grid-template-columns: 1fr;
+        gap: var(--余白-L);
+      }
+
+      .理由-ビジュアル {
+        aspect-ratio: 16/9;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .フッター-コンテンツ {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--余白-L);
+      }
+
+      .フォーム-ラッパー {
+        grid-template-columns: 1fr;
+      }
+
+      .フォーム-案内 .見出し-H2 {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --余白-XXL: 80px;
+        --余白-XL:  60px;
+      }
+
+      /* ナビ非表示 → ハンバーガー表示 */
+      .ナビ {
+        display: none;
+      }
+
+      .ハンバーガー {
+        display: flex;
+      }
+
+      .サービス-グリッド,
+      .物件-グリッド,
+      .声-グリッド {
+        grid-template-columns: 1fr;
+      }
+
+      .フォーム-2列 {
+        grid-template-columns: 1fr;
+      }
+
+      .フッター-コンテンツ {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .フッター-下部 {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      :root {
+        --余白-XXL: 64px;
+        --余白-XL:  48px;
+        --余白-L:   40px;
+      }
+
+      .ヒーロー-H1 {
+        font-size: 32px;
+      }
+
+      .フッター-コンテンツ {
+        grid-template-columns: 1fr;
+      }
+
+      .フォーム本体 {
+        padding: var(--余白-M);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================================================
+       ヘッダー・グローバルナビ
+  ====================================================== -->
+  <header class="ヘッダー" id="ヘッダー">
+    <div class="内側 ヘッダー-内側">
+
+      <!-- ロゴ -->
+      <a href="#" class="ロゴ" aria-label="トップへ戻る">
+        <span class="ロゴ-欧文">RESIDE</span>
+        <span class="ロゴ-和文">不動産総合サービス</span>
+      </a>
+
+      <!-- PC ナビ -->
+      <nav class="ナビ" aria-label="グローバルナビゲーション">
+        <a href="#サービス">サービス</a>
+        <a href="#選ばれる理由">選ばれる理由</a>
+        <a href="#実績">実績・事例</a>
+        <a href="#お客様の声">お客様の声</a>
+        <a href="#流れ">ご利用の流れ</a>
+        <a href="#お問い合わせ" class="ボタン-メイン" style="padding:10px 24px;font-size:13px;">無料相談する</a>
+      </nav>
+
+      <!-- ハンバーガーボタン（スマホ用）-->
+      <button
+        class="ハンバーガー"
+        id="ハンバーガー"
+        aria-label="メニューを開く"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- スマホ用ナビ -->
+  <nav class="スマホナビ" id="スマホナビ" aria-label="モバイルナビゲーション">
+    <a href="#サービス"     onclick="スマホナビ閉じる()">サービス</a>
+    <a href="#選ばれる理由" onclick="スマホナビ閉じる()">選ばれる理由</a>
+    <a href="#実績"         onclick="スマホナビ閉じる()">実績・事例</a>
+    <a href="#お客様の声"   onclick="スマホナビ閉じる()">お客様の声</a>
+    <a href="#流れ"         onclick="スマホナビ閉じる()">ご利用の流れ</a>
+    <a href="#お問い合わせ" onclick="スマホナビ閉じる()">無料相談する</a>
+  </nav>
+
+
+  <main>
+
+    <!-- =====================================================
+         ① ヒーロー
+    ====================================================== -->
+    <section class="ヒーロー" id="トップ">
+      <div class="ヒーロー-背景"></div>
+      <div class="ヒーロー-装飾"></div>
+
+      <div class="内側">
+        <div class="ヒーロー-コンテンツ">
+          <span class="ヒーロー-タグライン">Real Estate & Housing Solutions</span>
+          <h1 class="ヒーロー-H1">
+            あなたの<em>理想の住まい</em>を<br>
+            プロが<em>全力でサポートします</em>。
+          </h1>
+          <p class="ヒーロー-本文">
+            売買・賃貸・管理・リノベーションまで、住まいに関わるすべてのニーズに
+            ワンストップでお応えします。創業以来、地域に根ざした丁寧な対応が
+            私たちの誇りです。
+          </p>
+          <div class="ヒーロー-ボタン群">
+            <a href="#お問い合わせ" class="ボタン-メイン">無料で相談する</a>
+            <a href="#サービス"     class="ボタン-サブ">サービスを見る</a>
+          </div>
+        </div>
+
+        <!-- 実績カウンター -->
+        <div class="ヒーロー-実績">
+          <div class="実績-アイテム">
+            <span class="実績-数値">1,200<small style="font-size:0.5em">+</small></span>
+            <span class="実績-ラベル">累計取引件数</span>
+          </div>
+          <div class="実績-アイテム">
+            <span class="実績-数値">98<small style="font-size:0.5em">%</small></span>
+            <span class="実績-ラベル">お客様満足度</span>
+          </div>
+          <div class="実績-アイテム">
+            <span class="実績-数値">15<small style="font-size:0.5em">年</small></span>
+            <span class="実績-ラベル">地域密着の実績</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="スクロールダウン" aria-hidden="true">
+        <span class="スクロールダウン-テキスト">Scroll</span>
+        <div class="スクロールダウン-ライン"></div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         ② サービス一覧
+    ====================================================== -->
+    <section class="セクション セクション-背景クリーム" id="サービス">
+      <div class="内側">
+        <div class="見出しブロック フェードイン">
+          <span class="見出し-欧文サブ">Services</span>
+          <h2 class="見出し-H2">住まいのすべてに<br>ワンストップで対応</h2>
+          <div class="見出し-区切り線"></div>
+        </div>
+
+        <div class="サービス-グリッド">
+
+          <!-- カード 1 -->
+          <article class="サービス-カード フェードイン">
+            <div class="サービス-アイコン"></div>
+            <span class="サービス-番号">01</span>
+            <h3 class="サービス-タイトル">売買仲介</h3>
+            <p class="サービス-本文">
+              不動産の売却・購入を全面サポート。最新の市場データと
+              豊富な経験をもとに、最適な価格でのお取引を実現します。
+              査定は完全無料です。
+            </p>
+          </article>
+
+          <!-- カード 2 -->
+          <article class="サービス-カード フェードイン">
+            <div class="サービス-アイコン"></div>
+            <span class="サービス-番号">02</span>
+            <h3 class="サービス-タイトル">賃貸仲介・管理</h3>
+            <p class="サービス-本文">
+              賃貸物件の仲介から入居後の管理まで一貫対応。
+              オーナー様の収益最大化と入居者様の快適な暮らしを
+              両立させます。
+            </p>
+          </article>
+
+          <!-- カード 3 -->
+          <article class="サービス-カード フェードイン">
+            <div class="サービス-アイコン"></div>
+            <span class="サービス-番号">03</span>
+            <h3 class="サービス-タイトル">リノベーション</h3>
+            <p class="サービス-本文">
+              中古物件の価値を最大限に引き出すリノベーション提案。
+              デザインから施工まで自社対応だからこそ叶う
+              コストパフォーマンスと品質をご提供します。
+            </p>
+          </article>
+
+          <!-- カード 4 -->
+          <article class="サービス-カード フェードイン">
+            <div class="サービス-アイコン"></div>
+            <span class="サービス-番号">04</span>
+            <h3 class="サービス-タイトル">資産・相続コンサル</h3>
+            <p class="サービス-本文">
+              不動産を活用した資産形成・相続対策を専門家が
+              丁寧にサポート。税理士・弁護士とも連携し、
+              最適なプランニングをご提案します。
+            </p>
+          </article>
+
+          <!-- カード 5 -->
+          <article class="サービス-カード フェードイン">
+            <div class="サービス-アイコン"></div>
+            <span class="サービス-番号">05</span>
+            <h3 class="サービス-タイトル">投資用物件サポート</h3>
+            <p class="サービス-本文">
+              収益性の高い投資物件の選定から購入・運用管理まで
+              トータルでサポート。初めての不動産投資の方にも
+              わかりやすくご説明します。
+            </p>
+          </article>
+
+          <!-- カード 6 -->
+          <article class="サービス-カード フェードイン">
+            <div class="サービス-アイコン"></div>
+            <span class="サービス-番号">06</span>
+            <h3 class="サービス-タイトル">住み替えサポート</h3>
+            <p class="サービス-本文">
+              現在のお住まいの売却と新居の購入を同時並行で
+              スムーズに進めます。資金計画から引っ越しまで
+              一気通貫でお任せください。
+            </p>
+          </article>
+
+        </div><!-- /.サービス-グリッド -->
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         ③ 選ばれる理由
+    ====================================================== -->
+    <section class="セクション" id="選ばれる理由">
+      <div class="内側">
+        <div class="見出しブロック フェードイン">
+          <span class="見出し-欧文サブ">Why Choose Us</span>
+          <h2 class="見出し-H2">私たちが選ばれる<br>5つの理由</h2>
+          <div class="見出し-区切り線"></div>
+        </div>
+
+        <div class="理由-レイアウト">
+
+          <!-- ビジュアル側 -->
+          <div class="理由-ビジュアル フェードイン">
+            <div class="理由-ビジュアル-テキスト">
+              <span class="理由-ビジュアル-数値">15</span>
+              <span class="理由-ビジュアル-キャプション">年間の地域密着実績</span>
+            </div>
+            <div class="理由-バッジ">地域No.1実績</div>
+          </div>
+
+          <!-- 理由リスト -->
+          <div class="理由-リスト フェードイン">
+
+            <div class="理由-アイテム">
+              <span class="理由-アイテム-番号">01</span>
+              <div class="理由-アイテム-内容">
+                <h3>地域密着15年の信頼と実績</h3>
+                <p>地元に根ざした情報ネットワークで、表に出ない物件情報もいち早くご提供。長年培った地域への深い理解が強みです。</p>
+              </div>
+            </div>
+
+            <div class="理由-アイテム">
+              <span class="理由-アイテム-番号">02</span>
+              <div class="理由-アイテム-内容">
+                <h3>宅地建物取引士が直接対応</h3>
+                <p>資格を持つ専門スタッフが最初から最後まで担当。知識のある担当者が一貫してサポートするので安心です。</p>
+              </div>
+            </div>
+
+            <div class="理由-アイテム">
+              <span class="理由-アイテム-番号">03</span>
+              <div class="理由-アイテム-内容">
+                <h3>ワンストップサービス</h3>
+                <p>売買・賃貸・リノベ・資産相談まで自社完結。複数業者をたらい回しにされることなく、すべてお任せいただけます。</p>
+              </div>
+            </div>
+
+            <div class="理由-アイテム">
+              <span class="理由-アイテム-番号">04</span>
+              <div class="理由-アイテム-内容">
+                <h3>土日祝も対応、素早いレスポンス</h3>
+                <p>お客様のライフスタイルに合わせた柔軟な対応。ご連絡から原則24時間以内にご返信いたします。</p>
+              </div>
+            </div>
+
+            <div class="理由-アイテム">
+              <span class="理由-アイテム-番号">05</span>
+              <div class="理由-アイテム-内容">
+                <h3>しつこい営業は一切なし</h3>
+                <p>お客様のペースを最優先。情報提供とご提案はしますが、無理な押しつけや追い続けることは絶対にしません。</p>
+              </div>
+            </div>
+
+          </div><!-- /.理由-リスト -->
+        </div><!-- /.理由-レイアウト -->
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         ④ 実績・事例
+    ====================================================== -->
+    <section class="セクション セクション-背景クリーム" id="実績">
+      <div class="内側">
+        <div class="見出しブロック フェードイン">
+          <span class="見出し-欧文サブ">Case Studies</span>
+          <h2 class="見出し-H2">実績・取扱い事例</h2>
+          <div class="見出し-区切り線"></div>
+        </div>
+
+        <div class="物件-グリッド">
+
+          <article class="物件-カード フェードイン">
+            <div class="物件-画像エリア">
+              <span class="物件-タグ">売買</span>
+              <span class="物件-画像プレースホルダー">House</span>
+            </div>
+            <div class="物件-情報">
+              <p class="物件-エリア">東京都 世田谷区</p>
+              <h3 class="物件-名前">築15年 戸建て住宅の売却</h3>
+              <p class="物件-本文">査定からわずか45日で希望価格での売却を実現。買主の信頼性も重視し、安心・安全な取引をサポートしました。</p>
+            </div>
+          </article>
+
+          <article class="物件-カード フェードイン">
+            <div class="物件-画像エリア">
+              <span class="物件-タグ">リノベ</span>
+              <span class="物件-画像プレースホルダー">Renov</span>
+            </div>
+            <div class="物件-情報">
+              <p class="物件-エリア">神奈川県 横浜市</p>
+              <h3 class="物件-名前">中古マンションのフルリノベーション</h3>
+              <p class="物件-本文">築30年のマンションを現代的なデザインに一新。購入価格＋リノベ費用で、新築同等以上の資産価値を創出しました。</p>
+            </div>
+          </article>
+
+          <article class="物件-カード フェードイン">
+            <div class="物件-画像エリア">
+              <span class="物件-タグ">投資</span>
+              <span class="物件-画像プレースホルダー">Invest</span>
+            </div>
+            <div class="物件-情報">
+              <p class="物件-エリア">埼玉県 さいたま市</p>
+              <h3 class="物件-名前">収益アパートの取得・運用</h3>
+              <p class="物件-本文">利回り7.2%の収益物件を提案。購入後の賃貸管理もワンストップで対応し、オーナー様の手間を最小化しました。</p>
+            </div>
+          </article>
+
+        </div><!-- /.物件-グリッド -->
+
+        <div style="text-align:center; margin-top: var(--余白-L);">
+          <a href="#お問い合わせ" class="ボタン-メイン フェードイン">事例についてのお問い合わせはこちら</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         ⑤ お客様の声
+    ====================================================== -->
+    <section class="セクション セクション-背景ネイビー" id="お客様の声">
+      <div class="内側">
+        <div class="見出しブロック フェードイン">
+          <span class="見出し-欧文サブ">Testimonials</span>
+          <h2 class="見出し-H2">お客様の声</h2>
+          <div class="見出し-区切り線"></div>
+        </div>
+
+        <div class="声-グリッド">
+
+          <article class="声-カード フェードイン">
+            <span class="声-引用符">"</span>
+            <p class="声-本文">
+              担当の方がとても親切で、初めての不動産売却でも不安なく進められました。
+              希望額での売却も実現できて、本当に感謝しています。
+            </p>
+            <div class="声-プロフィール">
+              <div class="声-アバター">田</div>
+              <div>
+                <p class="声-名前">田中 様（40代・会社員）</p>
+                <p class="声-属性">戸建て売却 / 東京都</p>
+                <p class="声-星">★★★★★</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="声-カード フェードイン">
+            <span class="声-引用符">"</span>
+            <p class="声-本文">
+              投資用物件の購入から入居者募集・管理まで、すべてお任せできる安心感が
+              決め手でした。毎月の報告も丁寧で信頼できます。
+            </p>
+            <div class="声-プロフィール">
+              <div class="声-アバター">佐</div>
+              <div>
+                <p class="声-名前">佐藤 様（50代・自営業）</p>
+                <p class="声-属性">投資用物件購入 / 神奈川県</p>
+                <p class="声-星">★★★★★</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="声-カード フェードイン">
+            <span class="声-引用符">"</span>
+            <p class="声-本文">
+              リノベーションの提案がとても具体的で、完成イメージが事前によく分かりました。
+              仕上がりも想像以上で、毎日の暮らしが楽しくなりました。
+            </p>
+            <div class="声-プロフィール">
+              <div class="声-アバター">山</div>
+              <div>
+                <p class="声-名前">山田 様（30代・ご夫婦）</p>
+                <p class="声-属性">中古マンション購入・リノベ / 埼玉県</p>
+                <p class="声-星">★★★★★</p>
+              </div>
+            </div>
+          </article>
+
+        </div><!-- /.声-グリッド -->
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         ⑥ ご利用の流れ
+    ====================================================== -->
+    <section class="セクション" id="流れ">
+      <div class="内側">
+        <div class="見出しブロック フェードイン">
+          <span class="見出し-欧文サブ">How It Works</span>
+          <h2 class="見出し-H2">ご利用の流れ</h2>
+          <div class="見出し-区切り線"></div>
+        </div>
+
+        <div class="フロー-ステップ">
+
+          <div class="フロー-アイテム フェードイン">
+            <div class="フロー-番号エリア">
+              <div class="フロー-番号">01</div>
+            </div>
+            <div class="フロー-内容">
+              <h3 class="フロー-タイトル">無料相談・お問い合わせ（所要：約5分）</h3>
+              <p class="フロー-本文">まずはお気軽にフォームやお電話でご連絡ください。売却・購入・賃貸・リノベなどご相談内容は問いません。秘密厳守でお受けします。</p>
+            </div>
+          </div>
+
+          <div class="フロー-アイテム フェードイン">
+            <div class="フロー-番号エリア">
+              <div class="フロー-番号">02</div>
+            </div>
+            <div class="フロー-内容">
+              <h3 class="フロー-タイトル">ヒアリング・現地調査（所要：1〜2時間）</h3>
+              <p class="フロー-本文">お客様のご要望・ご予算・条件をしっかりヒアリング。現地を確認しながら、最適なプランをご提案するための情報収集を行います。</p>
+            </div>
+          </div>
+
+          <div class="フロー-アイテム フェードイン">
+            <div class="フロー-番号エリア">
+              <div class="フロー-番号">03</div>
+            </div>
+            <div class="フロー-内容">
+              <h3 class="フロー-タイトル">プランご提案・見積もり提示（所要：1〜3日）</h3>
+              <p class="フロー-本文">ヒアリング内容をもとに、複数のプランと概算費用をご提示。納得いくまでご質問・ご要望をいただき、じっくりご検討いただけます。</p>
+            </div>
+          </div>
+
+          <div class="フロー-アイテム フェードイン">
+            <div class="フロー-番号エリア">
+              <div class="フロー-番号">04</div>
+            </div>
+            <div class="フロー-内容">
+              <h3 class="フロー-タイトル">ご契約・手続きサポート（期間：お取引による）</h3>
+              <p class="フロー-本文">ご納得いただけたら契約へ。複雑な書類手続きもすべてサポート。法律・税務の専門家とも連携し、スムーズな取引を実現します。</p>
+            </div>
+          </div>
+
+          <div class="フロー-アイテム フェードイン">
+            <div class="フロー-番号エリア">
+              <div class="フロー-番号">05</div>
+            </div>
+            <div class="フロー-内容">
+              <h3 class="フロー-タイトル">お引渡し・アフターフォロー</h3>
+              <p class="フロー-本文">お引渡し後も安心してご連絡ください。引っ越し後のトラブル対応、資産管理のご相談など、長期的なパートナーとしてサポートします。</p>
+            </div>
+          </div>
+
+        </div><!-- /.フロー-ステップ -->
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         ⑦ よくある質問（FAQ）
+    ====================================================== -->
+    <section class="セクション セクション-背景クリーム" id="FAQ">
+      <div class="内側">
+        <div class="見出しブロック フェードイン">
+          <span class="見出し-欧文サブ">FAQ</span>
+          <h2 class="見出し-H2">よくあるご質問</h2>
+          <div class="見出し-区切り線"></div>
+        </div>
+
+        <div class="FAQ-リスト">
+
+          <div class="FAQ-アイテム フェードイン">
+            <div class="FAQ-質問" onclick="FAQ開閉(this)">
+              <span class="FAQ-Q-記号">Q</span>
+              <span class="FAQ-質問-テキスト">相談だけでも大丈夫ですか？費用はかかりますか？</span>
+              <span class="FAQ-矢印">▼</span>
+            </div>
+            <div class="FAQ-回答">
+              <p class="FAQ-回答-内側">はい、もちろんです。初回のご相談・査定は完全無料です。「まだ検討段階」「情報収集したいだけ」という方も大歓迎です。無理な営業は一切行いませんので、お気軽にご連絡ください。</p>
+            </div>
+          </div>
+
+          <div class="FAQ-アイテム フェードイン">
+            <div class="FAQ-質問" onclick="FAQ開閉(this)">
+              <span class="FAQ-Q-記号">Q</span>
+              <span class="FAQ-質問-テキスト">他社でも査定を依頼しているのですが、問題ありませんか？</span>
+              <span class="FAQ-矢印">▼</span>
+            </div>
+            <div class="FAQ-回答">
+              <p class="FAQ-回答-内側">もちろん問題ありません。複数社への査定依頼は適切な価格を知るためにも大切です。私たちは他社との比較をしていただいた上で選んでいただけるよう、誠実な査定と丁寧なご説明を心がけています。</p>
+            </div>
+          </div>
+
+          <div class="FAQ-アイテム フェードイン">
+            <div class="FAQ-質問" onclick="FAQ開閉(this)">
+              <span class="FAQ-Q-記号">Q</span>
+              <span class="FAQ-質問-テキスト">土日・祝日や夜間でも対応していただけますか？</span>
+              <span class="FAQ-矢印">▼</span>
+            </div>
+            <div class="FAQ-回答">
+              <p class="FAQ-回答-内側">はい、土日祝日も通常営業しています。また、ご連絡はLINE・メールでも受け付けており、平日夜間のお問い合わせにも翌営業日中にご返信します。お客様のご都合に合わせてご相談ください。</p>
+            </div>
+          </div>
+
+          <div class="FAQ-アイテム フェードイン">
+            <div class="FAQ-質問" onclick="FAQ開閉(this)">
+              <span class="FAQ-Q-記号">Q</span>
+              <span class="FAQ-質問-テキスト">地方在住でも相談・取引できますか？</span>
+              <span class="FAQ-矢印">▼</span>
+            </div>
+            <div class="FAQ-回答">
+              <p class="FAQ-回答-内側">はい、オンライン面談（Zoom等）や書類の電子署名にも対応しています。遠方にお住まいの方でも、現地への往来を最小限に抑えながらお取引を進めることが可能です。まずはお気軽にご相談ください。</p>
+            </div>
+          </div>
+
+          <div class="FAQ-アイテム フェードイン">
+            <div class="FAQ-質問" onclick="FAQ開閉(this)">
+              <span class="FAQ-Q-記号">Q</span>
+              <span class="FAQ-質問-テキスト">仲介手数料はいくらですか？</span>
+              <span class="FAQ-矢印">▼</span>
+            </div>
+            <div class="FAQ-回答">
+              <p class="FAQ-回答-内側">宅地建物取引業法に定める上限の範囲内で、物件の種別・価格に応じてご案内します。売買の場合は成約価格の最大3%＋6万円＋消費税が上限です。詳しくはお問い合わせ時にご説明いたします。</p>
+            </div>
+          </div>
+
+        </div><!-- /.FAQ-リスト -->
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         ⑧ お問い合わせフォーム
+    ====================================================== -->
+    <section class="セクション セクション-背景ネイビー" id="お問い合わせ">
+      <div class="内側">
+        <div class="フォーム-ラッパー">
+
+          <!-- 左：案内文 -->
+          <div class="フォーム-案内 フェードイン">
+            <span class="見出し-欧文サブ">Contact Us</span>
+            <h2 class="見出し-H2">まずは無料で<br>ご相談ください</h2>
+            <div class="見出し-区切り線" style="margin-left:0;"></div>
+            <p class="フォーム-本文">
+              「売りたい」「買いたい」「住み替えたい」
+              「投資に興味がある」など、どんな段階のご相談でも構いません。
+              専任スタッフが丁寧にお答えします。
+            </p>
+            <div class="フォーム-特典">
+              <div class="フォーム-特典-アイテム">相談・査定は完全無料</div>
+              <div class="フォーム-特典-アイテム">しつこい営業・電話は一切なし</div>
+              <div class="フォーム-特典-アイテム">土日祝日も対応可能</div>
+              <div class="フォーム-特典-アイテム">秘密厳守・個人情報保護徹底</div>
+            </div>
+          </div>
+
+          <!-- 右：フォーム -->
+          <div class="フォーム本体 フェードイン">
+
+            <!-- お名前 -->
+            <div class="フォーム-グループ">
+              <label class="フォーム-ラベル">
+                お名前<span class="フォーム-必須">必須</span>
+              </label>
+              <div class="フォーム-2列">
+                <input
+                  type="text"
+                  class="フォーム-入力"
+                  placeholder="姓（例：田中）"
+                  name="姓"
+                />
+                <input
+                  type="text"
+                  class="フォーム-入力"
+                  placeholder="名（例：太郎）"
+                  name="名"
+                />
+              </div>
+            </div>
+
+            <!-- 電話番号 -->
+            <div class="フォーム-グループ">
+              <label class="フォーム-ラベル">
+                電話番号<span class="フォーム-必須">必須</span>
+              </label>
+              <input
+                type="tel"
+                class="フォーム-入力"
+                placeholder="例：090-1234-5678"
+                name="電話番号"
+              />
+            </div>
+
+            <!-- メールアドレス -->
+            <div class="フォーム-グループ">
+              <label class="フォーム-ラベル">
+                メールアドレス<span class="フォーム-必須">必須</span>
+              </label>
+              <input
+                type="email"
+                class="フォーム-入力"
+                placeholder="例：taro@example.com"
+                name="メールアドレス"
+              />
+            </div>
+
+            <!-- ご相談内容 -->
+            <div class="フォーム-グループ">
+              <label class="フォーム-ラベル">
+                ご相談の種別<span class="フォーム-必須">必須</span>
+              </label>
+              <select class="フォーム-セレクト" name="相談種別">
+                <option value=""     disabled selected>選択してください</option>
+                <option value="売却">不動産を売りたい</option>
+                <option value="購入">不動産を買いたい</option>
+                <option value="賃貸">賃貸物件を探している</option>
+                <option value="管理">物件管理を依頼したい</option>
+                <option value="リノベ">リノベーションを相談したい</option>
+                <option value="投資">投資物件に興味がある</option>
+                <option value="その他">その他</option>
+              </select>
+            </div>
+
+            <!-- 物件エリア -->
+            <div class="フォーム-グループ">
+              <label class="フォーム-ラベル">物件のエリア（任意）</label>
+              <input
+                type="text"
+                class="フォーム-入力"
+                placeholder="例：東京都渋谷区、神奈川県横浜市 など"
+                name="物件エリア"
+              />
+            </div>
+
+            <!-- ご予算・ご希望価格 -->
+            <div class="フォーム-グループ">
+              <label class="フォーム-ラベル">ご予算・ご希望価格（任意）</label>
+              <input
+                type="text"
+                class="フォーム-入力"
+                placeholder="例：3,000万円前後、未定 など"
+                name="予算"
+              />
+            </div>
+
+            <!-- ご質問・ご要望 -->
+            <div class="フォーム-グループ">
+              <label class="フォーム-ラベル">ご質問・ご要望（任意）</label>
+              <textarea
+                class="フォーム-テキストエリア"
+                placeholder="お気軽にご記入ください"
+                name="メッセージ"
+              ></textarea>
+            </div>
+
+            <!-- 送信ボタン -->
+            <button type="button" class="フォーム-送信ボタン">
+              無料相談を申し込む →
+            </button>
+
+            <p class="フォーム-注釈">
+              ご入力いただいた個人情報は、お問い合わせへの対応のみに使用し、<br>
+              第三者への提供は一切行いません。
+            </p>
+
+          </div><!-- /.フォーム本体 -->
+        </div><!-- /.フォーム-ラッパー -->
+      </div>
+    </section>
+
+  </main><!-- /main -->
+
+
+  <!-- =====================================================
+       フッター
+  ====================================================== -->
+  <footer class="フッター">
+    <div class="内側">
+      <div class="フッター-コンテンツ">
+
+        <!-- 会社情報 -->
+        <div class="フッター-会社情報">
+          <div class="ロゴ">
+            <span class="ロゴ-欧文">RESIDE</span>
+            <span class="ロゴ-和文">不動産総合サービス</span>
+          </div>
+          <p class="フッター-説明">
+            住まいに関わるすべてのニーズに、地域密着のプロフェッショナルが誠実に向き合います。
+            売買・賃貸・リノベーション・資産コンサルまでワンストップで対応。
+          </p>
+        </div>
+
+        <!-- サービス -->
+        <div class="フッター-リンクグループ">
+          <h4>サービス</h4>
+          <ul>
+            <li><a href="#サービス">売買仲介</a></li>
+            <li><a href="#サービス">賃貸・管理</a></li>
+            <li><a href="#サービス">リノベーション</a></li>
+            <li><a href="#サービス">資産・相続コンサル</a></li>
+            <li><a href="#サービス">投資用物件</a></li>
+          </ul>
+        </div>
+
+        <!-- 会社情報 -->
+        <div class="フッター-リンクグループ">
+          <h4>会社情報</h4>
+          <ul>
+            <li><a href="#">会社概要</a></li>
+            <li><a href="#">スタッフ紹介</a></li>
+            <li><a href="#">アクセス</a></li>
+            <li><a href="#">採用情報</a></li>
+          </ul>
+        </div>
+
+        <!-- お問い合わせ -->
+        <div class="フッター-リンクグループ">
+          <h4>お問い合わせ</h4>
+          <ul>
+            <li><a href="#お問い合わせ">無料相談フォーム</a></li>
+            <li><a href="tel:00-0000-0000">TEL: 00-0000-0000</a></li>
+            <li><a href="#">営業時間：10:00〜19:00</a></li>
+            <li><a href="#">土日祝日も営業中</a></li>
+          </ul>
+        </div>
+
+      </div><!-- /.フッター-コンテンツ -->
+
+      <div class="フッター-下部">
+        <p class="コピーライト">© 2025 RESIDE. All Rights Reserved.</p>
+        <div class="フッター-リンク群">
+          <a href="#">プライバシーポリシー</a>
+          <a href="#">利用規約</a>
+          <a href="#">会社概要</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ページトップボタン -->
+  <button
+    class="ページトップ"
+    id="ページトップ"
+    onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    aria-label="ページトップへ戻る"
+  >▲</button>
+
+
+  <!-- =====================================================
+       JavaScript
+       - ヘッダースクロール制御
+       - スマホナビ開閉
+       - FAQ アコーディオン
+       - スクロールアニメーション（IntersectionObserver）
+       - ページトップボタン
+  ====================================================== -->
+  <script>
+    /* ---- ヘッダー：スクロールで背景を付ける ---- */
+    const ヘッダー = document.getElementById('ヘッダー');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        ヘッダー.classList.add('スクロール済み');
+      } else {
+        ヘッダー.classList.remove('スクロール済み');
+      }
+    });
+
+    /* ---- スマホナビ：開閉 ---- */
+    const ハンバーガー = document.getElementById('ハンバーガー');
+    const スマホナビ  = document.getElementById('スマホナビ');
+
+    ハンバーガー.addEventListener('click', () => {
+      const 開いてる = スマホナビ.classList.toggle('開く');
+      ハンバーガー.classList.toggle('開く');
+      ハンバーガー.setAttribute('aria-expanded', 開いてる);
+      // 背後のスクロール禁止
+      document.body.style.overflow = 開いてる ? 'hidden' : '';
+    });
+
+    function スマホナビ閉じる() {
+      スマホナビ.classList.remove('開く');
+      ハンバーガー.classList.remove('開く');
+      ハンバーガー.setAttribute('aria-expanded', false);
+      document.body.style.overflow = '';
+    }
+
+    /* ---- FAQ：アコーディオン ---- */
+    function FAQ開閉(質問ボタン) {
+      const アイテム = 質問ボタン.closest('.FAQ-アイテム');
+      const 開いてる = アイテム.classList.contains('開く');
+
+      // 他を閉じる
+      document.querySelectorAll('.FAQ-アイテム.開く').forEach(他 => {
+        他.classList.remove('開く');
+      });
+
+      // 今のを開く（すでに開いていたら閉じるだけ）
+      if (!開いてる) {
+        アイテム.classList.add('開く');
+      }
+    }
+
+    /* ---- スクロールアニメーション（IntersectionObserver） ---- */
+    const フェードイン対象 = document.querySelectorAll('.フェードイン');
+
+    const 監視設定 = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -40px 0px'
+    };
+
+    const 監視 = new IntersectionObserver((エントリー) => {
+      エントリー.forEach((エントリ, index) => {
+        if (エントリ.isIntersecting) {
+          // 少しずつずらして表示（グリッドアイテムに効果的）
+          const 遅延 = index * 80;
+          setTimeout(() => {
+            エントリ.target.classList.add('表示済み');
+          }, 遅延);
+          監視.unobserve(エントリ.target);
+        }
+      });
+    }, 監視設定);
+
+    フェードイン対象.forEach(要素 => 監視.observe(要素));
+
+    /* ---- ページトップボタン ---- */
+    const ページトップ = document.getElementById('ページトップ');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        ページトップ.classList.add('表示');
+      } else {
+        ページトップ.classList.remove('表示');
+      }
+    });
+  </script>
+
+</body>
+</html>
